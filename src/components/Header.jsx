@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/fireBase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { LOGO } from "../utils/constant";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
 
@@ -17,13 +22,31 @@ const Header = () => {
         navigate("/error");
       });
   };
+
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+
+    return () => unSubscribe();
+  }, []);
   return (
-    <div className="absolute  shadow-xl w-full h-[80px] px-[150px] bg-black bg-opacity-60 flex justify-between items-center ">
-      <img
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="netflix logo"
-        className="h-full w-[200px]"
-      />
+    <div className="absolute  shadow-xl w-full h-[80px] px-[150px] bg-black bg-opacity-60 flex justify-between items-center z-30 ">
+      <img src={LOGO} alt="netflix logo" className="h-full w-[200px]" />
 
       {user && (
         <div className="flex items-center gap-[15px]">
