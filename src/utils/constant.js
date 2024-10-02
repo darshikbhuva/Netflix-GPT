@@ -8,9 +8,13 @@ export const USER_PHOTO_URL =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYmkp9a2rrD1Sskb9HLt5mDaTt4QaIs8CcBg&s";
 
 export const API_OPTIONS = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhM2U0ZmQzODZmZGNjNDJhYjc4MmRmYWNmMWM3YWQyZiIsIm5iZiI6MTcyNzc2MDYzNy4wNTk5NzUsInN1YiI6IjY2ZmI4N2JjZDgwNjQxNjViZGYxNmU2NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tBBskj7IqO57JiZ-Dbq4dVGvP4kZB90ccO4RHLOZgl4'
-  }
+    accept: "application/json",
+    // Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhM2U0ZmQzODZmZGNjNDJhYjc4MmRmYWNmMWM3YWQyZiIsIm5iZiI6MTcyNzc2MDYzNy4wNTk5NzUsInN1YiI6IjY2ZmI4N2JjZDgwNjQxNjViZGYxNmU2NSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tBBskj7IqO57JiZ-Dbq4dVGvP4kZB90ccO4RHLOZgl4",
+  },
 };
+
+export const PHOTO_URL = "https://image.tmdb.org/t/p/w500";
